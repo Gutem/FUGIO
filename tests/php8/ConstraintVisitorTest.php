@@ -17,7 +17,11 @@ final class ConstraintVisitorTest extends TestCase
             'array' => ['is_array($this->p);', 'Array'],
             'bool' => ['is_bool($this->p);', 'Boolean'],
             'float' => ['is_float($this->p);', 'Float'],
+            'double' => ['is_double($this->p);', 'Float'],
+            'real' => ['is_real($this->p);', 'Float'],
             'int' => ['is_int($this->p);', 'Int'],
+            'integer' => ['is_integer($this->p);', 'Int'],
+            'long' => ['is_long($this->p);', 'Int'],
             'string' => ['is_string($this->p);', 'String'],
         ];
     }
@@ -39,6 +43,8 @@ final class ConstraintVisitorTest extends TestCase
             'int' => ['$this->p === 42;', 'Int', 42],
             'float' => ['$this->p === 1.5;', 'Float', 1.5],
             'bool' => ['$this->p === true;', 'Boolean', 'true'],
+            'bool-false' => ['$this->p === false;', 'Boolean', 'false'],
+            'reversed' => ['"abc" === $this->p;', 'String', 'abc'],
         ];
     }
 

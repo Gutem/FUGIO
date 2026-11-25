@@ -15,7 +15,7 @@ above renders it first.
 
 ## PHPUnit harness (best effort)
 
-`tests/phpunit.xml` + `tests/php8/` run thirty-five PHPUnit tests:
+`tests/phpunit.xml` + `tests/php8/` run forty-one PHPUnit tests:
 
 - parser 8.4 syntax is accepted;
 - the parser factory returns independent parsers;
@@ -39,11 +39,11 @@ composer install
 Current measured result on `php:8.4-cli` + Xdebug 3.5.3:
 
 ```text
-OK (35 tests, 97 assertions)
-Lines:   17.15% (528/3079)
+OK (41 tests, 117 assertions)
+Lines:   17.51% (539/3079)
 ```
 
-`ConstraintVisitor.php` is at 82.20%; `DebugUtils` 46.15%, `SeedNode` 56.44%,
+`ConstraintVisitor.php` is at 88.98%; `DebugUtils` 46.15%, `SeedNode` 56.44%,
 `FuzzSlave` 10.68%, `Executor` 7.10%, `PayloadCreator` 9.75% and `SeedTree`
 21.57%. The PHP 5/7 branches cannot execute on
 a PHP 8 runtime. The low overall number is because `PayloadCreator` and the
