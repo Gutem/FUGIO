@@ -34,6 +34,27 @@ final class PayloadCreatorTest extends TestCase
         self::assertSame(0, $p->PropertyLCS('', 'abc')['similarity']);
     }
 
+    public function testMakeGadgetTemplateAndGoalValues(): void
+    {
+        $p = new PayloadCreator();
+        $gadget = (object) [
+            'class' => 'A',
+            'real_class' => 'A',
+            'file' => 'a.php',
+            'real_file' => 'a.php',
+            'class_alias' => '',
+            'var_list' => [],
+        ];
+        $tree = $p->MakeGadgetTemplate($gadget);
+        self::assertSame('A', $tree['$this']['value']);
+        self::assertSame('a.php', $tree['$this']['file']);
+        self::assertSame('literal', $p->GetGoalValue('literal', 'Literal', 'x'));
+
+        $tmp = tempnam(sys_get_temp_dir(), 'fugio-goal-');
+        self::assertStringContainsString(basename($tmp), $p->GetGoalValue('MY_FILE', 'Replace', $tmp));
+        @unlink($tmp);
+    }
+
     public function testPropertyLms(): void
     {
         $p = new PayloadCreator();

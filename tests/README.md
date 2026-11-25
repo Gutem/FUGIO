@@ -15,7 +15,7 @@ above renders it first.
 
 ## PHPUnit harness (best effort)
 
-`tests/phpunit.xml` + `tests/php8/` run twenty-four PHPUnit tests:
+`tests/phpunit.xml` + `tests/php8/` run thirty-five PHPUnit tests:
 
 - parser 8.4 syntax is accepted;
 - the parser factory returns independent parsers;
@@ -39,12 +39,13 @@ composer install
 Current measured result on `php:8.4-cli` + Xdebug 3.5.3:
 
 ```text
-OK (24 tests, 68 assertions)
-Lines:   14.97% (248/1657)
+OK (35 tests, 97 assertions)
+Lines:   17.15% (528/3079)
 ```
 
-`ConstraintVisitor.php` is at 82.20%; `PayloadCreator.php` is 5.46%,
-`SeedNode` 17.82% and `SeedTree` 21.57%. The PHP 5/7 branches cannot execute on
+`ConstraintVisitor.php` is at 82.20%; `DebugUtils` 46.15%, `SeedNode` 56.44%,
+`FuzzSlave` 10.68%, `Executor` 7.10%, `PayloadCreator` 9.75% and `SeedTree`
+21.57%. The PHP 5/7 branches cannot execute on
 a PHP 8 runtime. The low overall number is because `PayloadCreator` and the
 remaining fuzzer code are large; this is a **port baseline**, not full FUGIO
 coverage, and there is no coverage gate yet.

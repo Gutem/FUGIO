@@ -1,9 +1,9 @@
 <?php
-if (PHP_VERSION >= "7.2") {
-  require_once __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php';
-}
-else {
-  require_once __DIR__ . '/../Lib/rabbitmq_php/vendor/autoload.php';
+$amqp_autoload = PHP_VERSION >= "7.2"
+  ? __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php'
+  : __DIR__ . '/../Lib/rabbitmq_php/vendor/autoload.php';
+if (file_exists($amqp_autoload)) {
+  require_once $amqp_autoload;
 }
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
