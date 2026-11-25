@@ -14,6 +14,9 @@
       <file>../Fuzzer/inc/ParserCompat.php</file>
       <file>../Fuzzer/inc/ASTLoader.php</file>
       <file>../Fuzzer/inc/ConstraintVisitor.php</file>
+      <file>../Fuzzer/PayloadCreator.php</file>
+      <file>../Fuzzer/SeedNode.php</file>
+      <file>../Fuzzer/SeedTree.php</file>
     </include>
   </source>
   <coverage>
