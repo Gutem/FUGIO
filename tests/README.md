@@ -31,17 +31,16 @@ composer install
 ../tests/coverage.sh
 ```
 
-Current measured result on `php:8.4-cli` + PCOV 1.0.12:
+Current measured result on `php:8.4-cli` + Xdebug 3.5.3:
 
 ```text
 OK (5 tests, 8 assertions)
-Lines: 0.00% (0/8)
+Lines:   50.00% (4/8)
 ```
 
-The 0% is an instrumentation artifact: `ParserCompat.php` is loaded during
-PHPUnit test discovery, before the coverage driver starts, so its executed
-lines are not attributed. The tests themselves pass; the harness is in place,
-but **there is no reliable coverage number yet** and no coverage gate.
+The 50% is the PHP 8 branch of `ParserCompat.php`; the PHP 5/7 branches
+cannot execute on a PHP 8 runtime. This is a **port baseline**, not full FUGIO
+coverage, and there is no coverage gate yet.
 
 ## Python tests
 
