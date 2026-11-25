@@ -34,3 +34,5 @@ tests/vendor/
 tests/.phpunit.cache/
 tests/coverage.txt
 tests/coverage-html/
+
+.coverage

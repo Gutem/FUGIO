@@ -58,3 +58,31 @@ python3 -m unittest discover -s tests/python -v
 
 4 tests: `--php_ver 8` accepted, `--php_ver 9` rejected, defaults preserved,
 and the PHP 8 `uopz` branch is present.
+
+## Analyzer / Detector (Python)
+
+```bash
+python3 -m coverage run --branch --source=Analyzer,Detector \
+  -m unittest discover -s tests/python
+python3 -m coverage report -m
+```
+
+Measured with 13 tests and offline stubs for `pika`, `requests` and
+`dateutil`:
+
+| Module | Coverage |
+|:--|--:|
+| `Analyzer/__init__.py` | 95% |
+| `Analyzer/static.py` | 40% |
+| `Detector/DetectorManager.py` | 30% |
+| `Analyzer/parser.py` | 20% |
+| `Analyzer/dynamic.py` | 15% |
+| `Analyzer/analyzer.py` | 10% |
+| `Analyzer/chain.py` | 5% |
+| **Total** | **12%** |
+
+The remaining Analyzer/Detector paths need AST dumps, RabbitMQ callbacks and
+`Proxy`/`Executor` integration; the unit tests exercise the pure methods
+(visibility/type decoding, parameter ranges, property/method lookup, global
+variable encoding, `StaticAnalyzer.update_info`, Base64 handling, and chain
+filtering).
