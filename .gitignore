@@ -28,3 +28,9 @@ Lib/evalhook8/*
 !Lib/evalhook8/php_evalhook.h
 
 __pycache__/
+
+# PHP test harness
+tests/vendor/
+tests/.phpunit.cache/
+tests/coverage.txt
+tests/coverage-html/

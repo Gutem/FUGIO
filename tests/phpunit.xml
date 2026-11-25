@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+         failOnWarning="true"
+         failOnRisky="true">
+  <testsuites>
+    <testsuite name="php8">
+      <directory>php8</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <file>../Fuzzer/inc/ParserCompat.php</file>
+    </include>
+  </source>
+  <coverage>
+    <report>
+      <text outputFile="coverage.txt"/>
+      <html outputDirectory="coverage-html"/>
+    </report>
+  </coverage>
+</phpunit>
