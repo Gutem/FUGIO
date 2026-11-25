@@ -26,3 +26,5 @@ Lib/evalhook8/*
 !Lib/evalhook8/config.m4
 !Lib/evalhook8/evalhook.c
 !Lib/evalhook8/php_evalhook.h
+
+__pycache__/
