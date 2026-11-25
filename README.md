@@ -151,3 +151,33 @@ All outputs are generated in the `Files/fuzzing/[app_path.time]/PUT/` directory.
 - `procX_X_X_X_X_X.chain`: an identified POP chain
 - `PROBABLY_EXPLOITABLE`: a directory for probably exploitable exploit objects (payloads)
 - `EXPLOITABLE`: a directory for exploitable exploit objects (payloads)
+
+## PHP 8.x support (this fork)
+
+This fork adds a PHP 8 path without changing the PHP 5/7 flow:
+
+- `--php_ver=8` selects the PHP 8 parser (`Lib/PHP-Parser8`, php-parser 5).
+- `Lib/evalhook8` is a PHP 8.0–8.4 port of the evalhook extension.
+- `Bootstrap` uses the PHP 7-style `uopz_set_hook` API for PHP 8; `runkit` is
+  rejected on PHP 8.
+- The generated hook is linted on PHP 8.4 (`__set_state` is static and takes
+  one argument, as PHP 8 requires).
+
+Install (Ubuntu 24.04, PHP 8.3 packages by default):
+
+```bash
+sudo PHP_VER=8.3 ./install_8.sh
+./run_FUGIO_8.sh --rabbitmq_ip=127.0.0.1 /path/to/target
+```
+
+Smoke tests:
+
+```bash
+(cd Lib/PHP-Parser8 && composer install)
+php tests/php8_smoke.php
+```
+
+Limitations: FUGIO still needs the target application's source and a running
+service, uopz/evalhook, and RabbitMQ. The PHP 8 port targets PHP 8.0–8.4; it
+does not make the old FUGIO benchmarks or their PHP 5/7-only extensions work
+on PHP 8.

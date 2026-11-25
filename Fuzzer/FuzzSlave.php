@@ -8,12 +8,16 @@ else {
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-if (PHP_VERSION >= "7.2") {
+if (PHP_VERSION_ID >= 80000) {
+  require_once __DIR__ . '/../Lib/PHP-Parser8/vendor/autoload.php';
+}
+elseif (PHP_VERSION_ID >= 70200) {
   require_once __DIR__ . '/../Lib/PHP-Parser7/vendor/autoload.php';
 }
 else {
   require_once __DIR__ . '/../Lib/PHP-Parser/vendor/autoload.php';
 }
+require_once __DIR__ . '/inc/ParserCompat.php';
 use PhpParser\ParserFactory;
 
 class FuzzSlave {
@@ -45,7 +49,10 @@ class FuzzSlave {
                                                 $this->rabbitmq_connection);
     $this->hinting_infos = array();
     // var_dump($this->hinting_data);
-    if (PHP_VERSION >= "7.2") {
+    if (PHP_VERSION_ID >= 80000) {
+      $this->parser = fugio_create_parser();
+    }
+    elseif (PHP_VERSION_ID >= 70200) {
       $this->parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
     }
     else {

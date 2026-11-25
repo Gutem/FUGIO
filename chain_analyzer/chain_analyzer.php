@@ -42,7 +42,10 @@ foreach($chain_list as $idx=>$chain){
 }
 echo "</ol>";
 
-if (PHP_VERSION >= "7.2") {
+if (PHP_VERSION_ID >= 80000) {
+    require __DIR__ . '/../Lib/PHP-Parser8/vendor/autoload.php';
+}
+elseif (PHP_VERSION >= "7.2") {
     require __DIR__ . '/../Lib/PHP-Parser7/vendor/autoload.php';
 }
 else {
@@ -184,7 +187,12 @@ class MyNodeVisitor extends NodeVisitorAbstract
     }
 }
 
-$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP5);
+if (PHP_VERSION_ID >= 80000) {
+    $parser = (new ParserFactory())->createForHostVersion();
+}
+else {
+    $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP5);
+}
 $traverser = new NodeTraverser;
 $traverser->addVisitor(new MyNodeVisitor);
 

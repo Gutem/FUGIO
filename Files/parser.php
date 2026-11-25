@@ -1,12 +1,22 @@
 <?php
-if (PHP_VERSION >= "7.2") {
+if (PHP_VERSION_ID >= 80000) {
   define("PHP7", true);
+  define("PHP8", true);
+}
+elseif (PHP_VERSION >= "7.2") {
+  define("PHP7", true);
+  define("PHP8", false);
 }
 else {
   define("PHP7", false);
+  define("PHP8", false);
 }
 
-if (PHP7) {
+if (PHP8) {
+  require_once __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php';
+  require __DIR__ . '/../Lib/PHP-Parser8/vendor/autoload.php';
+}
+elseif (PHP7) {
   require_once __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php';
   require __DIR__ . '/../Lib/PHP-Parser7/vendor/autoload.php';
 }
@@ -1093,7 +1103,10 @@ class MyNodeVisitor extends NodeVisitorAbstract
   }
 }
 
-if (PHP7) {
+if (PHP8) {
+  $parser = (new ParserFactory())->createForHostVersion();
+}
+elseif (PHP7) {
   $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 }
 else {

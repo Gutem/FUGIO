@@ -1,0 +1,28 @@
+# PHP dependencies installed by install_*.sh
+Lib/PHP-Parser8/vendor/
+Lib/rabbitmq_php7/vendor/
+Lib/rabbitmq_php/vendor/
+Lib/PHP-Parser/vendor/
+Lib/PHP-Parser7/vendor/
+
+# evalhook8 build artifacts
+Lib/evalhook8/.libs/
+Lib/evalhook8/modules/
+Lib/evalhook8/Makefile
+Lib/evalhook8/config.h
+Lib/evalhook8/config.log
+Lib/evalhook8/config.status
+Lib/evalhook8/configure
+Lib/evalhook8/configure.ac
+Lib/evalhook8/libtool
+Lib/evalhook8/run-tests.php
+Lib/evalhook8/*.lo
+Lib/evalhook8/*.o
+Lib/evalhook8/.deps/
+
+# evalhook8 autotools output (keep only the source)
+Lib/evalhook8/*
+!Lib/evalhook8/README.md
+!Lib/evalhook8/config.m4
+!Lib/evalhook8/evalhook.c
+!Lib/evalhook8/php_evalhook.h
