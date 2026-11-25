@@ -72,13 +72,13 @@ class ConstraintNodeVisitor extends NodeVisitorAbstract
     }
     elseif($ast instanceof Node\Expr\ConstFetch){
       if($ast->name instanceof Node\Name and
-         is_array($ast->name->parts) and
-         count($ast->name->parts) >= 1){
-        if(strtolower($ast->name->parts[0]) == "true" or
-           strtolower($ast->name->parts[0]) == "false"){
+         is_array(fugio_name_parts($ast->name)) and
+         count(fugio_name_parts($ast->name)) >= 1){
+        if(strtolower(fugio_name_parts($ast->name)[0]) == "true" or
+           strtolower(fugio_name_parts($ast->name)[0]) == "false"){
           $result['result'] = "TYPE_VALUE";
           $result['type'] = "Boolean";
-          $result['value'] = $ast->name->parts[0];
+          $result['value'] = fugio_name_parts($ast->name)[0];
         }
       }
     }
@@ -105,38 +105,38 @@ class ConstraintNodeVisitor extends NodeVisitorAbstract
     // Array type hinting
     if($target_node instanceof Node\Expr\FuncCall and
        $target_node->name instanceof Node\Name and
-       is_array($target_node->name->parts) and
-       count($target_node->name->parts) >= 1){
+       is_array(fugio_name_parts($target_node->name)) and
+       count(fugio_name_parts($target_node->name)) >= 1){
 
-      if($target_node->name->parts[0] == "is_array"){ // Array type
+      if(fugio_name_parts($target_node->name)[0] == "is_array"){ // Array type
         if($target_node->args[0]->value instanceof Node\Expr\PropertyFetch){ // Arg is prop fetch
           $prop_name = $target_node->args[0]->value->name;
           $this->SetConstraint("ONLY_TYPE", $prop_name, "Array", "NULL");
         }
       }
-      elseif($target_node->name->parts[0] == "is_bool"){
+      elseif(fugio_name_parts($target_node->name)[0] == "is_bool"){
         if($target_node->args[0]->value instanceof Node\Expr\PropertyFetch){ // Arg is prop fetch
           $prop_name = $target_node->args[0]->value->name;
           $this->SetConstraint("ONLY_TYPE", $prop_name, "Boolean", "NULL");
         }
       }
-      elseif($target_node->name->parts[0] == "is_double" or
-             $target_node->name->parts[0] == "is_float" or
-             $target_node->name->parts[0] == "is_real"){
+      elseif(fugio_name_parts($target_node->name)[0] == "is_double" or
+             fugio_name_parts($target_node->name)[0] == "is_float" or
+             fugio_name_parts($target_node->name)[0] == "is_real"){
         if($target_node->args[0]->value instanceof Node\Expr\PropertyFetch){ // Arg is prop fetch
           $prop_name = $target_node->args[0]->value->name;
           $this->SetConstraint("ONLY_TYPE", $prop_name, "Float", "NULL");
         }
       }
-      elseif($target_node->name->parts[0] == "is_int" or
-            $target_node->name->parts[0] == "is_integer" or
-            $target_node->name->parts[0] == "is_long"){
+      elseif(fugio_name_parts($target_node->name)[0] == "is_int" or
+            fugio_name_parts($target_node->name)[0] == "is_integer" or
+            fugio_name_parts($target_node->name)[0] == "is_long"){
         if($target_node->args[0]->value instanceof Node\Expr\PropertyFetch){ // Arg is prop fetch
           $prop_name = $target_node->args[0]->value->name;
           $this->SetConstraint("ONLY_TYPE", $prop_name, "Int", "NULL");
         }
       }
-      elseif($target_node->name->parts[0] == "is_string"){
+      elseif(fugio_name_parts($target_node->name)[0] == "is_string"){
         if($target_node->args[0]->value instanceof Node\Expr\PropertyFetch){ // Arg is prop fetch
           $prop_name = $target_node->args[0]->value->name;
           $this->SetConstraint("ONLY_TYPE", $prop_name, "String", "NULL");

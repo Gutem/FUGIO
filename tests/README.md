@@ -15,11 +15,14 @@ above renders it first.
 
 ## PHPUnit harness (best effort)
 
-`tests/phpunit.xml` + `tests/php8/` run five PHPUnit tests:
+`tests/phpunit.xml` + `tests/php8/` run eighteen PHPUnit tests:
 
 - parser 8.4 syntax is accepted;
 - the parser factory returns independent parsers;
 - invalid syntax raises `PhpParser\Error`;
+- `ASTLoad` works with and without a visitor;
+- `ConstraintLoad` captures `is_*` type hints and literal values;
+- `InstrumentationByAST` returns a tree;
 - the rendered `HookHead.php` passes `php -l`;
 - `__set_state()` is static.
 
@@ -34,13 +37,14 @@ composer install
 Current measured result on `php:8.4-cli` + Xdebug 3.5.3:
 
 ```text
-OK (5 tests, 8 assertions)
-Lines:   50.00% (4/8)
+OK (18 tests, 48 assertions)
+Lines:   61.97% (132/213)
 ```
 
-The 50% is the PHP 8 branch of `ParserCompat.php`; the PHP 5/7 branches
-cannot execute on a PHP 8 runtime. This is a **port baseline**, not full FUGIO
-coverage, and there is no coverage gate yet.
+The measured files are `ParserCompat.php`, `ASTLoader.php` and
+`ConstraintVisitor.php` (82.20% lines in `ConstraintNodeVisitor`). The PHP 5/7
+branches cannot execute on a PHP 8 runtime. This is a **port baseline**, not
+full FUGIO coverage, and there is no coverage gate yet.
 
 ## Python tests
 

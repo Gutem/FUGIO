@@ -12,6 +12,8 @@
   <source>
     <include>
       <file>../Fuzzer/inc/ParserCompat.php</file>
+      <file>../Fuzzer/inc/ASTLoader.php</file>
+      <file>../Fuzzer/inc/ConstraintVisitor.php</file>
     </include>
   </source>
   <coverage>

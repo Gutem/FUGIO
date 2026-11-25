@@ -15,6 +15,7 @@ else {
 if (PHP8) {
   require_once __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php';
   require __DIR__ . '/../Lib/PHP-Parser8/vendor/autoload.php';
+  require_once __DIR__ . '/../Fuzzer/inc/ParserCompat.php';
 }
 elseif (PHP7) {
   require_once __DIR__ . '/../Lib/rabbitmq_php7/vendor/autoload.php';
@@ -645,7 +646,7 @@ class MyNodeVisitor extends NodeVisitorAbstract
     }
 
     if ($node instanceof Node\Scalar\Encapsed) {
-      foreach($node->parts as $part) {
+      foreach(fugio_name_parts($node) as $part) {
         if (!$part instanceof Node\Scalar\EncapsedStringPart) {
           $this->string_list[] = $this->toString($part);
         }
