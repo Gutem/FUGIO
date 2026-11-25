@@ -158,7 +158,8 @@ final class FuzzerInternalTest extends TestCase
                 'deps' => [],
             ],
         ];
-        $list = $seed->GetMergedTreeList(null);
+        $template = ['$this' => ['name' => '$this', 'type' => 'Object', 'value' => 'Root', 'file' => null, 'deps' => []]];
+        $list = $seed->GetMergedTreeList($template);
         self::assertIsArray($list);
     }
 
