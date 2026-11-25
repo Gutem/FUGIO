@@ -67,22 +67,25 @@ python3 -m coverage run --branch --source=Analyzer,Detector \
 python3 -m coverage report -m
 ```
 
-Measured with 13 tests and offline stubs for `pika`, `requests` and
+Measured with 19 tests and offline stubs for `pika`, `requests` and
 `dateutil`:
 
 | Module | Coverage |
 |:--|--:|
 | `Analyzer/__init__.py` | 95% |
-| `Analyzer/static.py` | 40% |
+| `Analyzer/dynamic.py` | 70% |
+| `Analyzer/static.py` | 60% |
+| `Analyzer/parser.py` | 53% |
 | `Detector/DetectorManager.py` | 30% |
-| `Analyzer/parser.py` | 20% |
-| `Analyzer/dynamic.py` | 15% |
-| `Analyzer/analyzer.py` | 10% |
+| `Analyzer/analyzer.py` | 21% |
 | `Analyzer/chain.py` | 5% |
-| **Total** | **12%** |
+| **Total** | **26%** |
 
 The remaining Analyzer/Detector paths need AST dumps, RabbitMQ callbacks and
 `Proxy`/`Executor` integration; the unit tests exercise the pure methods
 (visibility/type decoding, parameter ranges, property/method lookup, global
-variable encoding, `StaticAnalyzer.update_info`, Base64 handling, and chain
-filtering).
+variable encoding, `StaticAnalyzer.parse/update_info`, `DynamicAnalyzer.update_info`,
+`ASTParser.parse`, Base64 handling, and chain filtering).
+
+**85% per module is not reached for `analyzer.py` and `chain.py`**; they need
+the real AST/RabbitMQ/Proxy flow, not only unit fixtures.
