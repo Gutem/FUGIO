@@ -109,7 +109,7 @@ class Bootstrap():
 
 
           else:
-            print("[!] Runkit does not support PHP 7")
+            print("[!] Runkit does not support PHP 7/8")
             exit()
 
         else: # uopz
@@ -144,7 +144,7 @@ class Bootstrap():
                                     "};\n"
                                     "uopz_rename('" + func_name + "', 'override_" + func_name + "');\n"
                                     "uopz_function('" + func_name + "', $hook_" + func_name + "_func_r353t);\n")
-          else: # PHP 7
+          else: # PHP 7 and 8 (uopz_set_hook is the same API)
               hook_file_body += "\nuopz_allow_exit(true);\n"
               hook_file_body += ("$class_alias_logging_r353t = function(){\n"
                                  "  global $argv_list_r353t;\n"

@@ -395,22 +395,25 @@ class ManipulateNodeVisitor extends NodeVisitorAbstract
         }
 
         // Add spl_object_hash on sink method (End-Point)
+        if($node instanceof Node\Expr\FuncCall){
+            $name_parts = fugio_name_parts($node->name);
+        }
         if($node instanceof Node\Expr\FuncCall and
-           empty($node->name->parts) == FALSE and
-           end($node->name->parts) != "debug_backtrace" ){ // [TODO] is it Right?
-            if(!array_key_exists(end($node->name->parts), $this->methodFunctions)){
-                $this->methodFunctions[end($node->name->parts)] = 1;
+           empty($name_parts) == FALSE and
+           end($name_parts) != "debug_backtrace" ){ // [TODO] is it Right?
+            if(!array_key_exists(end($name_parts), $this->methodFunctions)){
+                $this->methodFunctions[end($name_parts)] = 1;
             }
             else{
-                $this->methodFunctions[end($node->name->parts)] += 1;
+                $this->methodFunctions[end($name_parts)] += 1;
             }
             $inst_sink_call_args = array(
-                new Node\Arg(new Node\Scalar\String_(end($node->name->parts))),
+                new Node\Arg(new Node\Scalar\String_(end($name_parts))),
                 new Node\Arg(new Node\Expr\FuncCall(new Node\Name("debug_backtrace"))),
                 new Node\Arg(new Node\Scalar\String_(spl_object_hash($node))),
                 new Node\Arg(new Node\Scalar\String_($this->currentTraverseStatus['class'])),
                 new Node\Arg(new Node\Scalar\String_($this->currentTraverseStatus['method'])),
-                new Node\Arg(new Node\Scalar\String_($this->methodFunctions[end($node->name->parts)]))
+                new Node\Arg(new Node\Scalar\String_($this->methodFunctions[end($name_parts)]))
             );
             foreach($node->args as $sink_arg){
                 array_push($inst_sink_call_args, $sink_arg);
@@ -426,7 +429,7 @@ class ManipulateNodeVisitor extends NodeVisitorAbstract
                                   "FUNC",
                                   $this->currentTraverseStatus['class'],
                                   $this->currentTraverseStatus['method'],
-                                  end($node->name->parts));
+                                  end($name_parts));
             */
             return $inst_sink_call;
         }

@@ -40,7 +40,7 @@ class MyNodeVisitor extends NodeVisitorAbstract
 			$this->class_name = $node->name;
 			$this->class_info = Array(
 				"TYPE" => $node->type,
-				"PARENTS" => $node->extends->parts,
+				"PARENTS" => fugio_name_parts($node->extends),
 				"PROPS" => Array(),
 				"METHODS" => Array()
 			);
@@ -65,7 +65,7 @@ class MyNodeVisitor extends NodeVisitorAbstract
 		if ($node instanceof Node\Expr\FuncCall) {
 			$call_info = Array(
 				"TYPE" => 'FuncCall',
-				"FUNCTION" => $node->name->parts[0],
+				"FUNCTION" => fugio_name_parts($node->name)[0],
 				"ARGS" => $this->parseArgs($node->args)
 			);
 			array_push($this->call_list, $call_info);
@@ -84,7 +84,7 @@ class MyNodeVisitor extends NodeVisitorAbstract
 		if ($node instanceof Node\Expr\StaticCall) {
 			$call_info = Array(
 				"TYPE" => 'StaticCall',
-				"CLASS" => $node->class->parts[0],
+				"CLASS" => fugio_name_parts($node->class)[0],
 				"FUNCTION" => $node->name,
 				"ARGS" => $this->parseArgs($node->args)
 			);
@@ -114,7 +114,7 @@ class MyNodeVisitor extends NodeVisitorAbstract
 			if ($expr instanceof Node\Expr\New_) {
 				$call_info = Array(
 					"TYPE" => 'New',
-					"FUNCTION" => $expr->class->parts[0],
+					"FUNCTION" => fugio_name_parts($expr->class)[0],
 					"VAR" => $node->var->name,
 					"ARGS" => $this->parseArgs($expr->args)
 				);

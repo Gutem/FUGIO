@@ -60,8 +60,8 @@ class dummy_class_r353t {
   public function __invoke() {
     $this->pushMethod("__invoke()");
   }
-  public function __set_state() {
-    $this->pushMethod("__set_state()");
+  public static function __set_state($array) {
+    return new self();
   }
   public function __clone() {
     $this->pushMethod("__clone()");
@@ -403,7 +403,7 @@ function saveDatas_r353t($argv_list, $trigger_func, $func_argv, $inject_idxs) {
   $argv_list_r353t['INCLUDED_FILES'] = get_included_files();
   $copied_globals = new ArrayObject($GLOBALS);
   $argv_list_r353t['GLOBALS'] = $copied_globals->getArrayCopy();
-  $argv_list_r353t['EVAL_CODE'] = eval_log();
+  $argv_list_r353t['EVAL_CODE'] = function_exists('eval_log') ? eval_log() : array();
   $argv_list_r353t['USER_FUNCTIONS'] = get_user_function_r353t();
   // $argv_list['FUNCTIONS'] = get_defined_functions();
   $argv_list_r353t['CONSTANTS'] = get_defined_constants(true)['user'];
